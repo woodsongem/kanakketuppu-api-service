@@ -1,5 +1,5 @@
+using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.DAOs;
 using KanakketuppuUtilityApiServiceCore.DataContracts.Daos;
-using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories.DAOs;
 
 namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
 {

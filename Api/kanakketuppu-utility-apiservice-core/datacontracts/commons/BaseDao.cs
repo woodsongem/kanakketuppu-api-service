@@ -1,6 +1,6 @@
 using System;
 
-namespace KanakketuppuUtilityApiServiceCore.DataContracts.Daos
+namespace KanakketuppuUtilityApiServiceCore.DataContracts.Commons
 {
     public class BaseDao
     {

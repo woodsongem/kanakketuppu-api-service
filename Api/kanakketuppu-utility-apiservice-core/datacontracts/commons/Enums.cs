@@ -1,4 +1,4 @@
-namespace KanakketuppuUtilityApiServiceCore.DataContracts.Daos
+namespace KanakketuppuUtilityApiServiceCore.DataContracts.Commons
 {
     public enum Status
     {

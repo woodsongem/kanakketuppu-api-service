@@ -1,6 +1,6 @@
 using KanakketuppuUtilityApiServiceCore.DataContracts.Daos;
 
-namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories.DAOs
+namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.DAOs
 {
     public class ContactDAO : BaseDao
     {

@@ -1,5 +1,5 @@
 using System.Collections;
-namespace KanakketuppuUtilityApiServiceCore.DataContracts.Daos
+namespace KanakketuppuUtilityApiServiceCore.DataContracts.Commons
 {
     public class OutputResult : Result
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace KanakketuppuUtilityApiServiceCore.DataContracts.Daos
+namespace KanakketuppuUtilityApiServiceCore.DataContracts.Commons
 {
     public class Result
     {
