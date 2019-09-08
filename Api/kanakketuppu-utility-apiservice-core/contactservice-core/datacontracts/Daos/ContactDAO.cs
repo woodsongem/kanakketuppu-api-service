@@ -1,4 +1,4 @@
-using KanakketuppuUtilityApiServiceCore.DataContracts.Daos;
+using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
 
 namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.DAOs
 {

@@ -1,10 +1,14 @@
+using System;
+using System.Linq;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Mappers;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.PostProcessors;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Processors;
+using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Utility;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Validations;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Verifiers;
 using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
+using KanakketuppuUtilityApiServiceCore.Utility;
 
 namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services
 {
@@ -32,7 +36,23 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services
 
         public Result CreateContact(CreateContactMsgEntity createContactMsgEntity)
         {
-            throw new System.NotImplementedException();
+            //Setup
+            createContactMsgEntity.CreatedOn = createContactMsgEntity.ModifiedOn = DateTime.UtcNow;
+            createContactMsgEntity.CreatedBy = createContactMsgEntity.ModifiedBy = "ADMIN";
+
+            //Validation
+            var resultMessage = contactServiceValidation.ValidCreateContact(createContactMsgEntity);
+
+            //Verifier
+            resultMessage = contactServiceVerifier.VerifyCreateContact(createContactMsgEntity);
+
+            //Processor
+            resultMessage = contactServiceProcessor.ProcessorCreateContact(createContactMsgEntity);
+
+            //PostProcessor
+            var postResultMessage = contactServicePostProcessor.PostProcessorCreateContact(createContactMsgEntity);
+
+            return new Result() { ResultStatus = resultMessage.ToStatus(), ErrorMessages = resultMessage };
         }
     }
 }
