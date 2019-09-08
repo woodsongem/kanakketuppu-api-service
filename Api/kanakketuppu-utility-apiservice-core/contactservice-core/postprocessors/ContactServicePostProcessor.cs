@@ -8,7 +8,7 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.PostProcessors
     {
         public List<ErrorMessage> PostProcessorCreateContact(CreateContactMsgEntity createContactMsgEntity)
         {
-            throw new System.NotImplementedException();
+            return null;
         }
     }
 }

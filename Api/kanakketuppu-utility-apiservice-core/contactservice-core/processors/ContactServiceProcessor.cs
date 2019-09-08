@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Mappers;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories;
+using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Utility;
 using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
+using KanakketuppuUtilityApiServiceCore.Utility;
 
 namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Processors
 {
@@ -21,13 +23,17 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Processors
 
         public List<ErrorMessage> ProcessorCreateContact(CreateContactMsgEntity createContactMsgEntity)
         {
-            throw new System.NotImplementedException();
+            var errorMessages = CreateContact(createContactMsgEntity);
+            return errorMessages;
         }
 
         public List<ErrorMessage> CreateContact(CreateContactMsgEntity createContactMsgEntity)
         {
             var contactDAO = contactServiceMapper.MapContactDAO(createContactMsgEntity);
             var outputResult = contactServiceRepository.InsertContact(contactDAO);
+            if (outputResult.IsEmpty() || outputResult.ErrorMessages.AnyWithNullCheck())
+                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.CreateContactUnExpectedError);
+            createContactMsgEntity.ContactId = outputResult.Key.ToLong();
             return null;
         }
     }

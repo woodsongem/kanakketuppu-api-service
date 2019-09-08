@@ -16,5 +16,21 @@ namespace KanakketuppuUtilityApiServiceCore.Utility
         {
             return value == null;
         }
+
+        public static bool IsEmpty(this string value)
+        {
+            if (value == null)
+                return true;
+            return string.IsNullOrWhiteSpace(value);
+        }
+
+        public static long ToLong(this string value)
+        {
+            if (value.IsEmpty())
+                return 0;
+            if (long.TryParse(value, out long result))
+                return 0;
+            return result;
+        }
     }
 }
