@@ -8,7 +8,7 @@ using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Validations;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Verifiers;
 
-namespace kanakketuppu_utility_apiservice_core.contactservice_core.modules
+namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Modules
 {
     public class ContactServiceModule : Module
     {

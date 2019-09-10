@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using kanakketuppuapiservice.Mappers.ContactService;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services;
+using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
+using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kanakketuppuapiservice.Controllers
@@ -12,9 +15,14 @@ namespace kanakketuppuapiservice.Controllers
     public class ContactController : ControllerBase
     {
         private readonly IContactService contactService;
-        public ContactController(IContactService contactService)
+        private readonly IContactServiceControllerMapper contactServiceControllerMapper;
+
+        public ContactController(
+            IContactService contactService,
+            IContactServiceControllerMapper contactServiceControllerMapper)
         {
             this.contactService = contactService;
+            this.contactServiceControllerMapper = contactServiceControllerMapper;
         }
 
         // GET api/values
@@ -33,8 +41,10 @@ namespace kanakketuppuapiservice.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(ContactApiModel contactApiModel)
         {
+            var createContactMsgEntity = contactServiceControllerMapper.MapCreateContactMsgEntity(contactApiModel);
+            Result result = contactService.CreateContact(createContactMsgEntity);
         }
 
         // PUT api/values/5
