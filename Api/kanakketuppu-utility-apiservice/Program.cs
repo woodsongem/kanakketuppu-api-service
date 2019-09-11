@@ -16,10 +16,10 @@ namespace kanakketuppuapiservice
             // calls Populate to put services you register during
             // ConfigureServices into Autofac.
             WebHost.CreateDefaultBuilder(args)
-            .ConfigureServices(services => services.AddAutofac())
-            .UseStartup<Startup>()
-            .Build()
-            .Run();
+           .ConfigureServices(services => services.AddAutofac())
+           .UseStartup<Startup>()
+           .Build()
+           .Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

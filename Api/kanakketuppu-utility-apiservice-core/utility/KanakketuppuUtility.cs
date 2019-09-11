@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
+using KanakketuppuUtilityApiServiceModel.CommonModels;
 
 namespace KanakketuppuUtilityApiServiceCore.Utility
 {
@@ -18,6 +19,21 @@ namespace KanakketuppuUtilityApiServiceCore.Utility
         {
             return new List<ErrorMessage>(){
                 GetErrorMessage(errorCode,message)
+            };
+        }
+
+        public static ApiErrorMessage GetApiErrorMessage(string errorCode = null)
+        {
+            return new ApiErrorMessage()
+            {
+                ErrorCode = errorCode
+            };
+        }
+
+        public static List<ApiErrorMessage> GetApiErrorMessages(string errorCode = null)
+        {
+            return new List<ApiErrorMessage>(){
+                GetApiErrorMessage(errorCode)
             };
         }
     }

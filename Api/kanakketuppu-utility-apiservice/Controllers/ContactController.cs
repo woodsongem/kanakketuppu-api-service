@@ -45,6 +45,7 @@ namespace kanakketuppuapiservice.Controllers
         {
             var createContactMsgEntity = contactServiceControllerMapper.MapCreateContactMsgEntity(contactApiModel);
             Result result = contactService.CreateContact(createContactMsgEntity);
+            var contactApiResponseModel = contactServiceControllerMapper.MapContactApiResponseModel(result, createContactMsgEntity);
         }
 
         // PUT api/values/5

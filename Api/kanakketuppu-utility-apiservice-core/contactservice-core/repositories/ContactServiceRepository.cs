@@ -9,12 +9,12 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
 {
     public class ContactServiceRepository : IContactServiceRepository
     {
-        private const string V = "DBInfo:ConnectionString";
+        private const string KanakketuppuConnectionString = "Kanakketuppu";
         private string connectionString;
 
         public ContactServiceRepository(IConfiguration configuration)
         {
-            connectionString = configuration.GetValue<string>(V);
+            connectionString = configuration.GetValue<string>(KanakketuppuConnectionString);
         }
 
         internal IDbConnection Connection

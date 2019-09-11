@@ -8,6 +8,6 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Utility
         public static string MessageIsEmpty = "Kanakketuppu.Api.Post.Message.IsEmpty";
         public static string EmailAddressIsEmpty = "Kanakketuppu.Api.Post.EmailAddress.IsEmpty";
         public static string CreateContactUnExpectedError = "Kanakketuppu.Api.Post.CreateContact.UnExpectedError";
-
+        public static string InternalError ="Kanakketuppu.Api.Post.InternalError";
     }
 }
