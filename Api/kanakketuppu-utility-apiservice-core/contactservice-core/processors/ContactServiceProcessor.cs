@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Mappers;
@@ -29,11 +30,17 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Processors
 
         public List<ErrorMessage> CreateContact(CreateContactMsgEntity createContactMsgEntity)
         {
-            var contactDAO = contactServiceMapper.MapContactDAO(createContactMsgEntity);
-            var outputResult = contactServiceRepository.InsertContact(contactDAO);
-            if (outputResult.IsEmpty() || outputResult.ErrorMessages.AnyWithNullCheck())
+            try
+            {
+                var contactDAO = contactServiceMapper.MapContactDAO(createContactMsgEntity);
+                contactServiceRepository.InsertContact(contactDAO);
+                createContactMsgEntity.ContactId = contactDAO.Id;
+            }
+            catch (Exception ex)
+            {
                 return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.CreateContactUnExpectedError);
-            createContactMsgEntity.ContactId = outputResult.Key.ToLong();
+            }
+
             return null;
         }
     }

@@ -5,6 +5,6 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
 {
     public interface IContactServiceRepository
     {
-        OutputResult InsertContact(ContactDAO contactDAO);
+        void InsertContact(ContactDAO contactDAO);
     }
 }

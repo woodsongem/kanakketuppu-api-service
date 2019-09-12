@@ -9,7 +9,7 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
 {
     public class ContactServiceRepository : IContactServiceRepository
     {
-        private const string KanakketuppuConnectionString = "Kanakketuppu";
+        private const string KanakketuppuConnectionString = "ConnectionStrings:Kanakketuppu";
         private string connectionString;
 
         public ContactServiceRepository(IConfiguration configuration)
@@ -25,16 +25,17 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
             }
         }
 
-        public OutputResult InsertContact(ContactDAO contactDAO)
+        public async void InsertContact(ContactDAO contactDAO)
         {
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                dbConnection.Execute("INSERT INTO public.contactquery(" +
-                                    "customername, subject, emailaddress, message, status, createdby, createdon, modifiedby, modifiedon, isactive)" +
-                                    "VALUES (@CustomerName,@Subject,@EmailAddress,@Message,'NEW','ADMIN', @CreatedOn, 'ADMIN', @ModifiedOn, 1)", contactDAO);
+                var name = dbConnection.State;
+                contactDAO.Id = await dbConnection.ExecuteScalarAsync<long>("INSERT INTO public.contactquery (" +
+                                        "customername, subject, emailaddress, message, status, createdby, createdon, modifiedby, modifiedon, isactive)" +
+                                        " VALUES (@CustomerName,@Subject,@EmailAddress,@Message,'NEW','ADMIN', @CreatedOn, 'ADMIN', @ModifiedOn, @IsActive) RETURNING Id", contactDAO);
+
             }
-            return null;
         }
     }
 }
