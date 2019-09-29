@@ -41,11 +41,11 @@ namespace kanakketuppuapiservice.Controllers
 
         // POST api/values
         [HttpPost]
-        public async Task<IActionResult> Post(ContactApiModel contactApiModel)
+        public IActionResult Post(ContactApiModel contactApiModel)
         {
             var createContactMsgEntity = contactServiceControllerMapper.MapCreateContactMsgEntity(contactApiModel);
-            Result result = contactService.CreateContact(createContactMsgEntity);
-            var contactApiResponseModel = contactServiceControllerMapper.MapContactApiResponseModel(result, createContactMsgEntity);
+            Result result =  contactService.CreateContact(createContactMsgEntity);
+            var contactApiResponseModel =  contactServiceControllerMapper.MapContactApiResponseModel(result, createContactMsgEntity);
             return Ok(contactApiResponseModel);
         }
 
