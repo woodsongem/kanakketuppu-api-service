@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using kanakketuppuapiservice.Mappers.ContactService;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services;
 using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
+using KanakketuppuUtilityApiServiceCore.Utility;
 using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels;
+using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels.Contact.GetContact;
+using KatavuccolCommon.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kanakketuppuapiservice.Controllers
@@ -27,25 +30,28 @@ namespace kanakketuppuapiservice.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(contactService.GetContactsModel());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<ContactModel> Get(string id)
         {
-            return "value";
+            var contactModel = contactService.GetContactModel(id);
+            if (contactModel.IsEmpty())
+                return NotFound();
+            return Ok(contactModel);
         }
 
         // POST api/values
         [HttpPost]
-        public IActionResult Post(ContactApiModel contactApiModel)
+        public ActionResult Post(ContactApiModel contactApiModel)
         {
             var createContactMsgEntity = contactServiceControllerMapper.MapCreateContactMsgEntity(contactApiModel);
-            Result result =  contactService.CreateContact(createContactMsgEntity);
-            var contactApiResponseModel =  contactServiceControllerMapper.MapContactApiResponseModel(result, createContactMsgEntity);
+            var errorMessages = contactService.CreateContact(createContactMsgEntity);
+            var contactApiResponseModel = contactServiceControllerMapper.MapContactApiResponseModel(errorMessages, createContactMsgEntity);
             return Ok(contactApiResponseModel);
         }
 

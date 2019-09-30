@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
-using KanakketuppuUtilityApiServiceCore.Utility;
+using KatavuccolCommon.Extensions;
 
 namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Utility
 {

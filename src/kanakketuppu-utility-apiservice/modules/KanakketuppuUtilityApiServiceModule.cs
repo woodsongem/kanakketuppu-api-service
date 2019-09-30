@@ -1,4 +1,3 @@
-using System;
 using Autofac;
 using kanakketuppuapiservice.Mappers.ContactService;
 
@@ -8,7 +7,7 @@ namespace kanakketuppuapiservice.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ContactServiceControllerMapper>().As<IContactServiceControllerMapper>().InstancePerLifetimeScope();
+            builder.RegisterType<ContactServiceControllerMapper>().As<IContactServiceControllerMapper>();
         }
     }
 }

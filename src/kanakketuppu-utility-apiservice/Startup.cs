@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
+using kanakketuppuapiservice.Modules;
+using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -43,7 +46,7 @@ namespace kanakketuppu_utility_apiservice
             .SetBasePath(env.ContentRootPath)
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables();
-            this.Configuration = builder.Build();
+            Configuration = builder.Build();
 
             if (env.IsDevelopment())
             {
@@ -71,6 +74,18 @@ namespace kanakketuppu_utility_apiservice
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
+        }
+
+        // ConfigureContainer is where you can register things directly
+        // with Autofac. This runs after ConfigureServices so the things
+        // here will override registrations made in ConfigureServices.
+        // Don't build the container; that gets done for you. If you
+        // need a reference to the container, you need to use the
+        // "Without ConfigureContainer" mechanism shown later.
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new KanakketuppuUtilityApiServiceModule());
+            builder.RegisterModule(new ContactServiceModule());
         }
     }
 }

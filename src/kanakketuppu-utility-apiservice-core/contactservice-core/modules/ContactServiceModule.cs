@@ -1,4 +1,3 @@
-using System;
 using Autofac;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Mappers;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.PostProcessors;
@@ -14,13 +13,13 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ContactServiceMapper>().As<IContactServiceMapper>().InstancePerLifetimeScope();
-            builder.RegisterType<ContactServicePostProcessor>().As<IContactServicePostProcessor>().InstancePerLifetimeScope();
-            builder.RegisterType<ContactServiceProcessor>().As<IContactServiceProcessor>().InstancePerLifetimeScope();
-            builder.RegisterType<ContactServiceRepository>().As<IContactServiceRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<ContactService>().As<IContactService>().InstancePerLifetimeScope();
-            builder.RegisterType<ContactServiceValidation>().As<IContactServiceValidation>().InstancePerLifetimeScope();
-            builder.RegisterType<ContactServiceVerifier>().As<IContactServiceVerifier>().InstancePerLifetimeScope();
+            builder.RegisterType<ContactServiceMapper>().As<IContactServiceMapper>();
+            builder.RegisterType<ContactServicePostProcessor>().As<IContactServicePostProcessor>();
+            builder.RegisterType<ContactServiceProcessor>().As<IContactServiceProcessor>();
+            builder.RegisterType<ContactServiceRepository>().As<IContactServiceRepository>();
+            builder.RegisterType<ContactService>().As<IContactService>();
+            builder.RegisterType<ContactServiceValidation>().As<IContactServiceValidation>();
+            builder.RegisterType<ContactServiceVerifier>().As<IContactServiceVerifier>();
         }
     }
 }

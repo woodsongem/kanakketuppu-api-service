@@ -3,7 +3,9 @@ using Npgsql;
 using System.Data;
 using Dapper;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.DAOs;
-using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
+using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels.Contact.GetContact;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
 {
@@ -25,15 +27,30 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
             }
         }
 
-        public async void InsertContact(ContactDAO contactDAO)
+        public ContactModel GetContactModel(long contactId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<ContactModel> GetContactsModel()
         {
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
                 var name = dbConnection.State;
-                contactDAO.Id = await dbConnection.ExecuteScalarAsync<long>("INSERT INTO public.contactquery (" +
+                return dbConnection.Query<ContactModel>(ContactServiceDBQueries.GetContactsModelDBQuery);
+            }
+        }
+
+        public void InsertContact(ContactDAO contactDAO)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                var name = dbConnection.State;
+                contactDAO.Id = dbConnection.Query<long>("INSERT INTO public.contactquery (" +
                                         "customername, subject, emailaddress, message, status, createdby, createdon, modifiedby, modifiedon, isactive)" +
-                                        " VALUES (@CustomerName,@Subject,@EmailAddress,@Message,'NEW','ADMIN', @CreatedOn, 'ADMIN', @ModifiedOn, @IsActive) RETURNING Id", contactDAO);
+                                        " VALUES (@CustomerName,@Subject,@EmailAddress,@Message,'NEW','ADMIN', @CreatedOn, 'ADMIN', @ModifiedOn, @IsActive) RETURNING Id", contactDAO).Single();
 
             }
         }

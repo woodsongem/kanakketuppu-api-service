@@ -1,11 +1,16 @@
+using System.Collections.Generic;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts;
 using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
+using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels.Contact.GetContact;
 
 namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services
 {
     public interface IContactService
     {
-        Result CreateContact(CreateContactMsgEntity createContactMsgEntity);
-         
+        List<ErrorMessage> CreateContact(CreateContactMsgEntity createContactMsgEntity);
+
+        IEnumerable<ContactModel> GetContactsModel();
+
+        ContactModel GetContactModel(string id);
     }
 }

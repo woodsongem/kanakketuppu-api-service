@@ -5,4 +5,9 @@
     <RootNamespace>kanakketuppu_utility_apiservice_model</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="contactapiservicemodels\Contact\" />
+    <Folder Include="contactapiservicemodels\Contact\CreateContact\" />
+    <Folder Include="contactapiservicemodels\Contact\GetContact\" />
+  </ItemGroup>
 </Project>

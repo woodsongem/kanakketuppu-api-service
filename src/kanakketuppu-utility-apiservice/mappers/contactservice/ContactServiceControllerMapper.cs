@@ -2,17 +2,19 @@ using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts;
 using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
 using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels;
 using KanakketuppuUtilityApiServiceCore.Utility;
+using System.Collections.Generic;
+using KatavuccolCommon.Extensions;
 
 namespace kanakketuppuapiservice.Mappers.ContactService
 {
     public class ContactServiceControllerMapper : IContactServiceControllerMapper
     {
-        public ContactApiResponseModel MapContactApiResponseModel(Result result, CreateContactMsgEntity createContactMsgEntity)
+        public ContactApiResponseModel MapContactApiResponseModel(List<ErrorMessage> errorMessage, CreateContactMsgEntity createContactMsgEntity)
         {
             var contactApiResponseModel = new ContactApiResponseModel();
-            if (result.ResultStatus != Status.Success)
+            if (errorMessage.AnyWithNullCheck())
             {
-                contactApiResponseModel.ErrorMessages = result.ErrorMessages.ToApiErrorMessage();
+                contactApiResponseModel.ErrorMessages = errorMessage.ToApiErrorMessage();
             }
             contactApiResponseModel.Id = createContactMsgEntity.ContactId;
             return contactApiResponseModel;

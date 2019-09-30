@@ -3,6 +3,7 @@ using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Utility;
 using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
 using KanakketuppuUtilityApiServiceCore.Utility;
+using KatavuccolCommon.Extensions;
 
 namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Validations
 {
