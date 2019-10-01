@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts;
+using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.MessageEntities;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Mappers;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.PostProcessors;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Processors;
@@ -70,14 +71,42 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services
         public ContactModel GetContactModel(string id)
         {
             long contactId = id.ToLong();
-          
-            //var contactId = long.Parse(id);
             return contactServiceRespostry.GetContactModel(contactId);
         }
 
         public IEnumerable<ContactModel> GetContactsModel()
         {
             return contactServiceRespostry.GetContactsModel();
+        }
+
+        public List<ErrorMessage> DeleteContactById(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
+        {
+            //Setup
+            deleteContactByIdMsgEntity.CreatedOn = deleteContactByIdMsgEntity.ModifiedOn = DateTime.UtcNow;
+            deleteContactByIdMsgEntity.CreatedBy = deleteContactByIdMsgEntity.ModifiedBy = "ADMIN";
+
+            //Validation
+            var resultMessage = contactServiceValidation.ValidDeleteContactById(deleteContactByIdMsgEntity);
+            if (resultMessage.AnyWithNullCheck())
+                return resultMessage;
+
+            //Verifier
+            resultMessage = contactServiceVerifier.VerifyDeleteContactById(deleteContactByIdMsgEntity);
+            if (resultMessage.AnyWithNullCheck())
+                return resultMessage;
+
+            //Processor
+            resultMessage = contactServiceProcessor.ProcessorDeleteContactById(deleteContactByIdMsgEntity);
+            if (resultMessage.AnyWithNullCheck())
+                return resultMessage;
+
+            //PostProcessor
+            var postResultMessage = contactServicePostProcessor.PostProcessorDeleteContactById(deleteContactByIdMsgEntity);
+            if (postResultMessage.AnyWithNullCheck())
+            {
+                //TODO:log response
+            }
+            return resultMessage;
         }
     }
 }

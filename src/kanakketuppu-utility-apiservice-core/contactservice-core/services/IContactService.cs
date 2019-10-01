@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts;
+using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.MessageEntities;
 using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
 using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels.Contact.GetContact;
 
@@ -12,5 +13,7 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services
         IEnumerable<ContactModel> GetContactsModel();
 
         ContactModel GetContactModel(string id);
+
+        List<ErrorMessage> DeleteContactById(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity);
     }
 }

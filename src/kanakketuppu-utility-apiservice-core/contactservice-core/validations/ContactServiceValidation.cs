@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts;
+using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.MessageEntities;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Utility;
 using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
 using KanakketuppuUtilityApiServiceCore.Utility;
@@ -17,6 +19,32 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Validations
             errorMessages = IsMessageValid(createContactMsgEntity);
             errorMessages = IsEmailAddressValid(createContactMsgEntity);
             return errorMessages;
+        }
+
+        public List<ErrorMessage> ValidDeleteContactById(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
+        {
+            var errorMessages = IsDeleteContactByIdMsgEntityValid(deleteContactByIdMsgEntity);
+            errorMessages = IsContactIdValid(deleteContactByIdMsgEntity);
+            return errorMessages;
+        }
+
+        public List<ErrorMessage> IsContactIdValid(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
+        {
+            if(deleteContactByIdMsgEntity.Id.IsEmpty())
+                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.ContactIdIsEmpty);
+
+            deleteContactByIdMsgEntity.ParsedId = deleteContactByIdMsgEntity.Id.ToLong();
+            if (deleteContactByIdMsgEntity.ParsedId == 0)
+                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.ContactIdIsInValid);
+
+            return null;
+        }
+
+        public List<ErrorMessage> IsDeleteContactByIdMsgEntityValid(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
+        {
+            if (deleteContactByIdMsgEntity.IsEmpty())
+                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.DeleteContactByIdMsgEntityIsEmpty);
+            return null;
         }
 
         public List<ErrorMessage> IsCreateContactMsgEntityValid(CreateContactMsgEntity createContactMsgEntity)

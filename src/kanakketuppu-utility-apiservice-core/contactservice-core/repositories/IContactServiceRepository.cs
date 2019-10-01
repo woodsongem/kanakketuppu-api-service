@@ -12,5 +12,7 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
         IEnumerable<ContactModel> GetContactsModel();
 
         ContactModel GetContactModel(long contactId);
+
+        ContactDAO GetContactById(long parsedId);
     }
 }

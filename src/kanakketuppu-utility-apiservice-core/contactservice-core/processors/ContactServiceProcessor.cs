@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts;
+using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.MessageEntities;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Mappers;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Utility;
@@ -28,6 +29,11 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Processors
             return errorMessages;
         }
 
+        public List<ErrorMessage> ProcessorDeleteContactById(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<ErrorMessage> CreateContact(CreateContactMsgEntity createContactMsgEntity)
         {
             try
@@ -43,5 +49,6 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Processors
 
             return null;
         }
+
     }
 }

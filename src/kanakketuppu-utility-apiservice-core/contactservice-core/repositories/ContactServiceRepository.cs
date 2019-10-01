@@ -27,9 +27,24 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
             }
         }
 
+        public ContactDAO GetContactById(long parsedId)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                var name = dbConnection.State;
+                return dbConnection.Query<ContactDAO>(ContactServiceDBQueries.GetContactByIdDBQuery, new { id = parsedId })?.Single();
+            }
+        }
+
         public ContactModel GetContactModel(long contactId)
         {
-            throw new System.NotImplementedException();
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                var name = dbConnection.State;
+                return dbConnection.Query<ContactModel>(ContactServiceDBQueries.GetContactModelByIdDBQuery, new { id = contactId })?.Single();
+            }
         }
 
         public IEnumerable<ContactModel> GetContactsModel()
@@ -48,10 +63,7 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
             {
                 dbConnection.Open();
                 var name = dbConnection.State;
-                contactDAO.Id = dbConnection.Query<long>("INSERT INTO public.contactquery (" +
-                                        "customername, subject, emailaddress, message, status, createdby, createdon, modifiedby, modifiedon, isactive)" +
-                                        " VALUES (@CustomerName,@Subject,@EmailAddress,@Message,'NEW','ADMIN', @CreatedOn, 'ADMIN', @ModifiedOn, @IsActive) RETURNING Id", contactDAO).Single();
-
+                contactDAO.Id = dbConnection.Query<long>(ContactServiceDBQueries.CreateContactDBQuery, contactDAO).Single();
             }
         }
     }

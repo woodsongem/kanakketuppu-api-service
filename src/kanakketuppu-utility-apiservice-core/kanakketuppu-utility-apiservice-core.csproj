@@ -17,4 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\kanakketuppu-utility-apiservice-model\kanakketuppu-utility-apiservice-model.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="contactservice-core\datacontracts\MessageEntities\" />
+  </ItemGroup>
 </Project>

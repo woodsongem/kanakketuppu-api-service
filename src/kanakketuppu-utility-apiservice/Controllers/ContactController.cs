@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using kanakketuppuapiservice.Mappers.ContactService;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services;
+using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Utility;
 using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
 using KanakketuppuUtilityApiServiceCore.Utility;
 using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels;
@@ -32,27 +33,54 @@ namespace kanakketuppuapiservice.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            return Ok(contactService.GetContactsModel());
+            try
+            {
+                return Ok(contactService.GetContactsModel());
+            }
+            catch (Exception ex)
+            {
+                //TODO: log error
+                return StatusCode(500, ContactServiceErrorCode.InternalError);
+            }
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<ContactModel> Get(string id)
         {
-            var contactModel = contactService.GetContactModel(id);
-            if (contactModel.IsEmpty())
-                return NotFound();
-            return Ok(contactModel);
+            try
+            {
+                var contactModel = contactService.GetContactModel(id);
+                if (contactModel.IsEmpty())
+                    return NotFound();
+                return Ok(contactModel);
+            }
+            catch (Exception ex)
+            {
+                //TODO: log error
+                return StatusCode(500, ContactServiceErrorCode.InternalError);
+            }
         }
 
         // POST api/values
         [HttpPost]
         public ActionResult Post(ContactApiModel contactApiModel)
         {
-            var createContactMsgEntity = contactServiceControllerMapper.MapCreateContactMsgEntity(contactApiModel);
-            var errorMessages = contactService.CreateContact(createContactMsgEntity);
-            var contactApiResponseModel = contactServiceControllerMapper.MapContactApiResponseModel(errorMessages, createContactMsgEntity);
-            return Ok(contactApiResponseModel);
+            try
+            {
+                var createContactMsgEntity = contactServiceControllerMapper.MapCreateContactMsgEntity(contactApiModel);
+                var errorMessages = contactService.CreateContact(createContactMsgEntity);
+                var contactApiResponseModel = contactServiceControllerMapper.MapContactApiResponseModel(errorMessages, createContactMsgEntity);
+                if (contactApiResponseModel.ErrorMessages.IsEmpty())
+                    return Ok(contactApiResponseModel);
+                return StatusCode(400, contactApiResponseModel);
+
+            }
+            catch (Exception ex)
+            {
+                //TODO: log error
+                return StatusCode(500, ContactServiceErrorCode.InternalError);
+            }
         }
 
         // PUT api/values/5
@@ -63,8 +91,21 @@ namespace kanakketuppuapiservice.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(string id)
         {
+            try
+            {
+                var deleteContactByIdMsgEntity = contactServiceControllerMapper.MapDeleteContactByIdMsgEntity(id);
+                var errorMessage = contactService.DeleteContactById(deleteContactByIdMsgEntity);
+                if (errorMessage.IsEmpty())
+                    return Ok();
+                return StatusCode(400, errorMessage.ToApiErrorMessage());
+            }
+            catch (Exception ex)
+            {
+                //TODO: log error
+                return StatusCode(500, ContactServiceErrorCode.InternalError);
+            }
         }
     }
 }
