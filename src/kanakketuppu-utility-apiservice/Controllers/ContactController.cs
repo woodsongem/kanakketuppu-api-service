@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using kanakketuppuapiservice.Mappers.ContactService;
+using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.MessageEntities;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Utility;
-using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
 using KanakketuppuUtilityApiServiceCore.Utility;
 using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels;
 using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels.Contact.GetContact;
+using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels.Contact.UpdateContact;
 using KatavuccolCommon.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -85,8 +83,22 @@ namespace kanakketuppuapiservice.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult Put(string id, [FromBody] UpdateContactApiModel updateContactApiModel)
         {
+            try
+            {
+                var updateContactMsgEntity = contactServiceControllerMapper.MapUpdateContactMsgEntity(updateContactApiModel, id);
+                var errorMessages = contactService.UpdateContact(updateContactMsgEntity);
+                if (errorMessages.IsEmpty())
+                    return Ok();
+                return StatusCode(400, errorMessages.ToApiErrorMessage());
+
+            }
+            catch (Exception ex)
+            {
+                //TODO: log error
+                return StatusCode(500, ContactServiceErrorCode.InternalError);
+            }
         }
 
         // DELETE api/values/5

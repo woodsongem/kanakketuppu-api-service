@@ -15,5 +15,7 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services
         ContactModel GetContactModel(string id);
 
         List<ErrorMessage> DeleteContactById(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity);
+
+        List<ErrorMessage> UpdateContact(UpdateContactMsgEntity updateContactMsgEntity);
     }
 }

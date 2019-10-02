@@ -6,11 +6,9 @@ using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Mappers;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.PostProcessors;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Processors;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories;
-using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Utility;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Validations;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Verifiers;
 using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
-using KanakketuppuUtilityApiServiceCore.Utility;
 using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels.Contact.GetContact;
 using KatavuccolCommon.Extensions;
 
@@ -107,6 +105,11 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services
                 //TODO:log response
             }
             return resultMessage;
+        }
+
+        public List<ErrorMessage> UpdateContact(UpdateContactMsgEntity updateContactMsgEntity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

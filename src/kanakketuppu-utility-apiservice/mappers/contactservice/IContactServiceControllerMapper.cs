@@ -4,6 +4,7 @@ using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.Message
 using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
 using KanakketuppuUtilityApiServiceModel.CommonModels;
 using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels;
+using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels.Contact.UpdateContact;
 
 namespace kanakketuppuapiservice.Mappers.ContactService
 {
@@ -14,5 +15,7 @@ namespace kanakketuppuapiservice.Mappers.ContactService
         ContactApiResponseModel MapContactApiResponseModel(List<ErrorMessage> errorMessage, CreateContactMsgEntity createContactMsgEntity);
 
         DeleteContactByIdMsgEntity MapDeleteContactByIdMsgEntity(string id);
+
+        UpdateContactMsgEntity MapUpdateContactMsgEntity(UpdateContactApiModel updateContactApiModel,string id);
     }
 }

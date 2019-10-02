@@ -1,10 +1,11 @@
+﻿using System;
 using KanakketuppuUtilityApiServiceCore.DataContracts.Commons;
 
-namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts
+namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.MessageEntities
 {
-    public class CreateContactMsgEntity : BaseMsgEntity
+    public class UpdateContactMsgEntity : BaseMsgEntity
     {
-        public long ContactId { get; set; }
+        public string Id { get; set; }
 
         public string CustomerName { get; set; }
 

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using KatavuccolCommon.Extensions;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.MessageEntities;
 using KanakketuppuUtilityApiServiceModel.CommonModels;
+using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels.Contact.UpdateContact;
 
 namespace kanakketuppuapiservice.Mappers.ContactService
 {
@@ -42,6 +43,20 @@ namespace kanakketuppuapiservice.Mappers.ContactService
             return new DeleteContactByIdMsgEntity()
             {
                 Id = id
+            };
+        }
+
+        public UpdateContactMsgEntity MapUpdateContactMsgEntity(UpdateContactApiModel updateContactApiModel,string id)
+        {
+            return new UpdateContactMsgEntity
+            {
+                Id = id,
+                CreatedBy = updateContactApiModel.CreatedByOrModifiedBy,
+                ModifiedBy = updateContactApiModel.CreatedByOrModifiedBy,
+                CustomerName = updateContactApiModel.CustomerName,
+                EmailAddress = updateContactApiModel.EmailAddress,
+                Message = updateContactApiModel.Message,
+                Subject = updateContactApiModel.Subject
             };
         }
     }

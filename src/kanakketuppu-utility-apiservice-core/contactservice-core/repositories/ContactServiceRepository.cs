@@ -6,6 +6,7 @@ using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.DAOs;
 using KanakketuppuUtilityApiServiceModel.ContactApiServiceModels.Contact.GetContact;
 using System.Collections.Generic;
 using System.Linq;
+using KatavuccolCommon.Extensions;
 
 namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
 {
@@ -43,7 +44,10 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
             {
                 dbConnection.Open();
                 var name = dbConnection.State;
-                return dbConnection.Query<ContactModel>(ContactServiceDBQueries.GetContactModelByIdDBQuery, new { id = contactId })?.Single();
+                var contactsModel = dbConnection.Query<ContactModel>(ContactServiceDBQueries.GetContactModelByIdDBQuery, new { id = contactId });
+                if (contactsModel.AnyWithNullCheck())
+                    return contactsModel.SingleOrDefault();
+                return null;
             }
         }
 
