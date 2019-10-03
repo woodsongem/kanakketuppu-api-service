@@ -31,21 +31,25 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Processors
 
         public List<ErrorMessage> ProcessorDeleteContactById(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
         {
-            throw new NotImplementedException();
+            var errorMessages = CreateContactById(deleteContactByIdMsgEntity);
+            return errorMessages;
+        }
+
+        public List<ErrorMessage> CreateContactById(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
+        {
+            var contactDAO = contactServiceMapper.MapContactDAO(deleteContactByIdMsgEntity);
+            contactServiceRepository.DeleteContactById(contactDAO);
+
+            return null;
         }
 
         public List<ErrorMessage> CreateContact(CreateContactMsgEntity createContactMsgEntity)
         {
-            try
-            {
-                var contactDAO = contactServiceMapper.MapContactDAO(createContactMsgEntity);
-                contactServiceRepository.InsertContact(contactDAO);
-                createContactMsgEntity.ContactId = contactDAO.Id;
-            }
-            catch (Exception ex)
-            {
+            var contactDAO = contactServiceMapper.MapContactDAO(createContactMsgEntity);
+            contactServiceRepository.InsertContact(contactDAO);
+            createContactMsgEntity.ContactId = contactDAO.Id;
+            if (createContactMsgEntity.ContactId <= 0)
                 return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.CreateContactUnExpectedError);
-            }
 
             return null;
         }

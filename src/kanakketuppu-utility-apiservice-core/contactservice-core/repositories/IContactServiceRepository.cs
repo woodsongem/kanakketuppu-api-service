@@ -14,5 +14,7 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
         ContactModel GetContactModel(long contactId);
 
         ContactDAO GetContactById(long parsedId);
+
+        void DeleteContactById(ContactDAO contactDAO);
     }
 }

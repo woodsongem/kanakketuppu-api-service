@@ -28,6 +28,16 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
             }
         }
 
+        public void DeleteContactById(ContactDAO contactDAO)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                var name = dbConnection.State;
+                dbConnection.Execute(ContactServiceDBQueries.DeleteContactByIdDBQuery, contactDAO);
+            }
+        }
+
         public ContactDAO GetContactById(long parsedId)
         {
             using (IDbConnection dbConnection = Connection)

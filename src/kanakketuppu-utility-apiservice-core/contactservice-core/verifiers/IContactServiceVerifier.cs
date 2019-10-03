@@ -9,6 +9,8 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Verifiers
     {
         List<ErrorMessage> IsContactIdValid(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity);
 
+        List<ErrorMessage> IsContactIsReadyToDelete(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity);
+
         List<ErrorMessage> VerifyCreateContact(CreateContactMsgEntity createContactMsgEntity);
 
         List<ErrorMessage> VerifyDeleteContactById(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity);

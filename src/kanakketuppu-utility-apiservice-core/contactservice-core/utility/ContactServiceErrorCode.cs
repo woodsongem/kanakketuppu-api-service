@@ -1,16 +1,29 @@
 namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Utility
 {
-    public class ContactServiceErrorCode
+    public static class ContactServiceErrorCode
     {
-        public static string ContactIdIsInValid = "Kanakketuppu.Api.Post.DeleteContactMsgEntity.InValid";
-        public static string ContactIdIsEmpty = "Kanakketuppu.Api.Post.DeleteContactMsgEntity.IsEmpty";
-        public static string DeleteContactByIdMsgEntityIsEmpty = "Kanakketuppu.Api.Post.DeleteContactMsgEntity.IsEmpty";
-        public static string CreateContactMsgEntityIsEmpty = "Kanakketuppu.Api.Post.CreateContactMsgEntity.IsEmpty";
-        public static string CustomerNameIsEmpty = "Kanakketuppu.Api.Post.CustomerName.IsEmpty";
-        public static string SubjectIsEmpty = "Kanakketuppu.Api.Post.Subject.IsEmpty";
-        public static string MessageIsEmpty = "Kanakketuppu.Api.Post.Message.IsEmpty";
-        public static string EmailAddressIsEmpty = "Kanakketuppu.Api.Post.EmailAddress.IsEmpty";
-        public static string CreateContactUnExpectedError = "Kanakketuppu.Api.Post.CreateContact.UnExpectedError";
-        public static string InternalError = "Kanakketuppu.Api.Post.InternalError";
+        public const string DeleteContactByIdIdNotFound = "Kanakketuppu.Api.Post.DeleteContactById.Id.NotFound";
+
+        public const string ContactIdIsInValid = "Kanakketuppu.Api.Post.DeleteContactMsgEntity.InValid";
+
+        public const string ContactIdIsEmpty = "Kanakketuppu.Api.Post.DeleteContactMsgEntity.IsEmpty";
+
+        public const string DeleteContactByIdMsgEntityIsEmpty = "Kanakketuppu.Api.Post.DeleteContactMsgEntity.IsEmpty";
+
+        public const string CreateContactMsgEntityIsEmpty = "Kanakketuppu.Api.Post.CreateContactMsgEntity.IsEmpty";
+
+        public const string CustomerNameIsEmpty = "Kanakketuppu.Api.Post.CustomerName.IsEmpty";
+
+        public const string SubjectIsEmpty = "Kanakketuppu.Api.Post.Subject.IsEmpty";
+
+        public const string MessageIsEmpty = "Kanakketuppu.Api.Post.Message.IsEmpty";
+
+        public const string EmailAddressIsEmpty = "Kanakketuppu.Api.Post.EmailAddress.IsEmpty";
+
+        public const string CreateContactUnExpectedError = "Kanakketuppu.Api.Post.CreateContact.UnExpectedError";
+
+        public const string InternalError = "Kanakketuppu.Api.Post.InternalError";
+
+        public const string DeleteContactByIdAlreadyDeleted = "Kanakketuppu.Api.DeleteContactById.AlreadyDeleted";
     }
 }

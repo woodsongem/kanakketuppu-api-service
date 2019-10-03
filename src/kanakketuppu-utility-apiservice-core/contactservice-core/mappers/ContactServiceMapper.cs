@@ -1,5 +1,6 @@
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.DAOs;
+using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.MessageEntities;
 
 namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Mappers
 {
@@ -18,6 +19,16 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Mappers
                 CreatedOn = createContactMsgEntity.CreatedOn,
                 ModifiedBy = createContactMsgEntity.ModifiedBy,
                 ModifiedOn = createContactMsgEntity.ModifiedOn
+            };
+        }
+
+        public ContactDAO MapContactDAO(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
+        {
+            return new ContactDAO
+            {
+                Id = deleteContactByIdMsgEntity.ParsedId,
+                ModifiedBy = deleteContactByIdMsgEntity.ModifiedBy,
+                ModifiedOn = deleteContactByIdMsgEntity.ModifiedOn
             };
         }
     }
