@@ -33,7 +33,6 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                var name = dbConnection.State;
                 dbConnection.Execute(ContactServiceDBQueries.DeleteContactByIdDBQuery, contactDAO);
             }
         }
@@ -43,7 +42,6 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                var name = dbConnection.State;
                 return dbConnection.Query<ContactDAO>(ContactServiceDBQueries.GetContactByIdDBQuery, new { id = parsedId })?.Single();
             }
         }
@@ -53,7 +51,6 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                var name = dbConnection.State;
                 var contactsModel = dbConnection.Query<ContactModel>(ContactServiceDBQueries.GetContactModelByIdDBQuery, new { id = contactId });
                 if (contactsModel.AnyWithNullCheck())
                     return contactsModel.SingleOrDefault();
@@ -66,7 +63,6 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                var name = dbConnection.State;
                 return dbConnection.Query<ContactModel>(ContactServiceDBQueries.GetContactsModelDBQuery);
             }
         }
@@ -76,7 +72,6 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                var name = dbConnection.State;
                 contactDAO.Id = dbConnection.Query<long>(ContactServiceDBQueries.CreateContactDBQuery, contactDAO).Single();
             }
         }

@@ -14,12 +14,12 @@ namespace kanakketuppuapiservice.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ContactController : ControllerBase
+    public class ContactsController : ControllerBase
     {
         private readonly IContactService contactService;
         private readonly IContactServiceControllerMapper contactServiceControllerMapper;
 
-        public ContactController(
+        public ContactsController(
             IContactService contactService,
             IContactServiceControllerMapper contactServiceControllerMapper)
         {

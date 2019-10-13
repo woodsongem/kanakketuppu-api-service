@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
 WORKDIR /src
 
 COPY /src/kanakketuppu-utility-apiservice/kanakketuppu-utility-apiservice.csproj                kanakketuppu-utility-apiservice/
-COPY /src/kanakketuppu-utility-apiservice-core/kanakketuppuapi_core.csproj                      kanakketuppu-utility-apiservice-core/
+COPY /src/kanakketuppu-utility-apiservice-core/kanakketuppu-utility-apiservice-core.csproj      kanakketuppu-utility-apiservice-core/
 COPY /src/kanakketuppu-utility-apiservice-model/kanakketuppu-utility-apiservice-model.csproj    kanakketuppu-utility-apiservice-model/
 COPY /src/*.sln .
 
@@ -19,6 +19,7 @@ WORKDIR "/src/kanakketuppu-utility-apiservice"
 
 RUN dotnet build "kanakketuppu-utility-apiservice.csproj" -c Release -o /app/build
 
+# 
 FROM build AS publish
 
 RUN dotnet publish "kanakketuppu-utility-apiservice.csproj" -c Release -o /app/publish
