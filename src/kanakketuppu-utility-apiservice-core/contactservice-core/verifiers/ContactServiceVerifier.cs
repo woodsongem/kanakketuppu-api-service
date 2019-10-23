@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Datacontracts.DAOs;
@@ -14,10 +15,14 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Verifiers
     public class ContactServiceVerifier : IContactServiceVerifier
     {
         private readonly IContactServiceRepository contactServiceRepository;
+        private readonly IContactServiceErrorCode contactServiceErrorCode;
 
-        public ContactServiceVerifier(IContactServiceRepository contactServiceRepository)
+        public ContactServiceVerifier(
+            IContactServiceRepository contactServiceRepository,
+            IContactServiceErrorCode contactServiceErrorCode)
         {
             this.contactServiceRepository = contactServiceRepository;
+            this.contactServiceErrorCode = contactServiceErrorCode;
         }
 
         public List<ErrorMessage> VerifyCreateContact(CreateContactMsgEntity createContactMsgEntity)
@@ -39,10 +44,10 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Verifiers
         public List<ErrorMessage> IsContactIdValid(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
         {
             var contactDao = contactServiceRepository.GetContactById(deleteContactByIdMsgEntity.ParsedId);
-            if (contactDao.IsEmpty())
+            if (!contactDao.AnyWithNullCheck())
             {
                 deleteContactByIdMsgEntity.HttpStatusCode = HttpStatusCode.NotFound;
-                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.DeleteContactByIdIdNotFound);
+                return KanakketuppuUtility.GetErrorMessages(contactServiceErrorCode.DeleteContactByIdIdNotFound);
             }
 
             deleteContactByIdMsgEntity.ExistingContact = contactDao;
@@ -51,9 +56,13 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Verifiers
 
         public List<ErrorMessage> IsContactIsReadyToDelete(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
         {
-            if (deleteContactByIdMsgEntity.ExistingContact.Status.IsEqual(ContactStatus.DELETED.ToString()))
+            if (deleteContactByIdMsgEntity.ExistingContact.Count() >= 2)
             {
-                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.DeleteContactByIdAlreadyDeleted);
+                return KanakketuppuUtility.GetErrorMessages(contactServiceErrorCode.ToManyContactsForId);
+            }
+            if (deleteContactByIdMsgEntity.ExistingContact.FirstOrDefault().Status.IsEqual(ContactStatus.DELETED.ToString()))
+            {
+                return KanakketuppuUtility.GetErrorMessages(contactServiceErrorCode.DeleteContactByIdAlreadyDeleted);
             }
 
             return null;

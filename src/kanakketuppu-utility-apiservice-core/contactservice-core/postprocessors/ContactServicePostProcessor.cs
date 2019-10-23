@@ -14,7 +14,7 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.PostProcessors
 
         public List<ErrorMessage> PostProcessorDeleteContactById(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
         {
-            throw new System.NotImplementedException();
+            return null;
         }
     }
 }

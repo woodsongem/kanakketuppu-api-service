@@ -37,24 +37,22 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories
             }
         }
 
-        public ContactDAO GetContactById(long parsedId)
+        public IEnumerable<ContactDAO> GetContactById(long parsedId)
         {
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<ContactDAO>(ContactServiceDBQueries.GetContactByIdDBQuery, new { id = parsedId })?.Single();
+                return dbConnection.Query<ContactDAO>(ContactServiceDBQueries.GetContactByIdDBQuery, new { id = parsedId });
             }
         }
 
-        public ContactModel GetContactModel(long contactId)
+        public IEnumerable<ContactModel> GetContactModel(long contactId)
         {
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                var contactsModel = dbConnection.Query<ContactModel>(ContactServiceDBQueries.GetContactModelByIdDBQuery, new { id = contactId });
-                if (contactsModel.AnyWithNullCheck())
-                    return contactsModel.SingleOrDefault();
-                return null;
+                return dbConnection.Query<ContactModel>(ContactServiceDBQueries.GetContactModelByIdDBQuery, new { id = contactId });
+                
             }
         }
 

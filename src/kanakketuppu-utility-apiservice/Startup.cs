@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Autofac;
 using kanakketuppuapiservice.Modules;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Modules;
+using KanakketuppuUtilityApiServiceCore.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +31,8 @@ namespace kanakketuppu_utility_apiservice
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddHttpContextAccessor();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -86,6 +89,7 @@ namespace kanakketuppu_utility_apiservice
         {
             builder.RegisterModule(new KanakketuppuUtilityApiServiceModule());
             builder.RegisterModule(new ContactServiceModule());
+            builder.RegisterModule(new KanakketuppuUtilityApiServiceCoreModule());
         }
     }
 }

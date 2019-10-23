@@ -14,13 +14,16 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Processors
     {
         private readonly IContactServiceRepository contactServiceRepository;
         private readonly IContactServiceMapper contactServiceMapper;
+        private readonly IContactServiceErrorCode contactServiceErrorCode;
 
         public ContactServiceProcessor(
             IContactServiceRepository contactServiceRepository,
-            IContactServiceMapper contactServiceMapper)
+            IContactServiceMapper contactServiceMapper,
+            IContactServiceErrorCode contactServiceErrorCode)
         {
             this.contactServiceRepository = contactServiceRepository;
             this.contactServiceMapper = contactServiceMapper;
+            this.contactServiceErrorCode = contactServiceErrorCode;
         }
 
         public List<ErrorMessage> ProcessorCreateContact(CreateContactMsgEntity createContactMsgEntity)
@@ -31,11 +34,11 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Processors
 
         public List<ErrorMessage> ProcessorDeleteContactById(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
         {
-            var errorMessages = CreateContactById(deleteContactByIdMsgEntity);
+            var errorMessages = DeleteContactById(deleteContactByIdMsgEntity);
             return errorMessages;
         }
 
-        public List<ErrorMessage> CreateContactById(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
+        public List<ErrorMessage> DeleteContactById(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
         {
             var contactDAO = contactServiceMapper.MapContactDAO(deleteContactByIdMsgEntity);
             contactServiceRepository.DeleteContactById(contactDAO);
@@ -49,7 +52,7 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Processors
             contactServiceRepository.InsertContact(contactDAO);
             createContactMsgEntity.ContactId = contactDAO.Id;
             if (createContactMsgEntity.ContactId <= 0)
-                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.CreateContactUnExpectedError);
+                return KanakketuppuUtility.GetErrorMessages(contactServiceErrorCode.CreateContactUnExpectedError);
 
             return null;
         }

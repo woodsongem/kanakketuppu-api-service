@@ -14,11 +14,13 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.0.0" />
     <PackageReference Include="Katavuccol.Common" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\kanakketuppu-utility-apiservice-model\kanakketuppu-utility-apiservice-model.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="contactservice-core\datacontracts\MessageEntities\" />
+    <Folder Include="Modules\" />
   </ItemGroup>
 </Project>

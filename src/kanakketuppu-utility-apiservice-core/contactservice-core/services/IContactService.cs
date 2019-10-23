@@ -12,7 +12,7 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services
 
         IEnumerable<ContactModel> GetContactsModel();
 
-        ContactModel GetContactModel(string id);
+        IEnumerable<ContactModel> GetContactModel(string id);
 
         List<ErrorMessage> DeleteContactById(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity);
 

@@ -4,6 +4,7 @@ using KanakketuppuUtilityApiServiceCore.ContactServiceCore.PostProcessors;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Processors;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Repositories;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services;
+using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Utility;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Validations;
 using KanakketuppuUtilityApiServiceCore.ContactServiceCore.Verifiers;
 
@@ -20,6 +21,7 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Modules
             builder.RegisterType<ContactService>().As<IContactService>();
             builder.RegisterType<ContactServiceValidation>().As<IContactServiceValidation>();
             builder.RegisterType<ContactServiceVerifier>().As<IContactServiceVerifier>();
+            builder.RegisterType<ContactServiceErrorCode>().As<IContactServiceErrorCode>();
         }
     }
 }

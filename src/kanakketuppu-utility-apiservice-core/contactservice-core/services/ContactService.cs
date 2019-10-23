@@ -66,7 +66,7 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Services
             return resultMessage;
         }
 
-        public ContactModel GetContactModel(string id)
+        public IEnumerable<ContactModel> GetContactModel(string id)
         {
             long contactId = id.ToLong();
             return contactServiceRespostry.GetContactModel(contactId);

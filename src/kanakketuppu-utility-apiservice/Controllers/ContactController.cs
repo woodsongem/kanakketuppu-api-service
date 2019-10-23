@@ -18,13 +18,16 @@ namespace kanakketuppuapiservice.Controllers
     {
         private readonly IContactService contactService;
         private readonly IContactServiceControllerMapper contactServiceControllerMapper;
+        private readonly IContactServiceErrorCode contactServiceErrorCode;
 
         public ContactsController(
             IContactService contactService,
-            IContactServiceControllerMapper contactServiceControllerMapper)
+            IContactServiceControllerMapper contactServiceControllerMapper,
+            IContactServiceErrorCode contactServiceErrorCode)
         {
             this.contactService = contactService;
             this.contactServiceControllerMapper = contactServiceControllerMapper;
+            this.contactServiceErrorCode = contactServiceErrorCode;
         }
 
         // GET api/values
@@ -38,7 +41,7 @@ namespace kanakketuppuapiservice.Controllers
             catch (Exception ex)
             {
                 //TODO: log error
-                return StatusCode(500, ContactServiceErrorCode.InternalError);
+                return StatusCode(500, contactServiceErrorCode.InternalError);
             }
         }
 
@@ -56,7 +59,7 @@ namespace kanakketuppuapiservice.Controllers
             catch (Exception ex)
             {
                 //TODO: log error
-                return StatusCode(500, ContactServiceErrorCode.InternalError);
+                return StatusCode(500, contactServiceErrorCode.InternalError);
             }
         }
 
@@ -77,7 +80,7 @@ namespace kanakketuppuapiservice.Controllers
             catch (Exception ex)
             {
                 //TODO: log error
-                return StatusCode(500, ContactServiceErrorCode.InternalError);
+                return StatusCode(500, contactServiceErrorCode.InternalError);
             }
         }
 
@@ -97,7 +100,7 @@ namespace kanakketuppuapiservice.Controllers
             catch (Exception ex)
             {
                 //TODO: log error
-                return StatusCode(500, ContactServiceErrorCode.InternalError);
+                return StatusCode(500, contactServiceErrorCode.InternalError);
             }
         }
 
@@ -116,7 +119,7 @@ namespace kanakketuppuapiservice.Controllers
             catch (Exception ex)
             {
                 //TODO: log error
-                return StatusCode(500, ContactServiceErrorCode.InternalError);
+                return StatusCode(500, contactServiceErrorCode.InternalError);
             }
         }
     }

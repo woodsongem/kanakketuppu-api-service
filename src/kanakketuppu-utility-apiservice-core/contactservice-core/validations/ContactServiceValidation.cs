@@ -11,6 +11,13 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Validations
 {
     public class ContactServiceValidation : IContactServiceValidation
     {
+        private readonly IContactServiceErrorCode contactServiceErrorCode;
+
+        public ContactServiceValidation(IContactServiceErrorCode contactServiceErrorCode)
+        {
+            this.contactServiceErrorCode = contactServiceErrorCode;
+        }
+
         public List<ErrorMessage> ValidCreateContact(CreateContactMsgEntity createContactMsgEntity)
         {
             var errorMessages = IsCreateContactMsgEntityValid(createContactMsgEntity);
@@ -31,11 +38,11 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Validations
         public List<ErrorMessage> IsContactIdValid(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
         {
             if(deleteContactByIdMsgEntity.Id.IsEmpty())
-                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.ContactIdIsEmpty);
+                return KanakketuppuUtility.GetErrorMessages(contactServiceErrorCode.ContactIdIsEmpty);
 
             deleteContactByIdMsgEntity.ParsedId = deleteContactByIdMsgEntity.Id.ToLong();
             if (deleteContactByIdMsgEntity.ParsedId == 0)
-                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.ContactIdIsInValid);
+                return KanakketuppuUtility.GetErrorMessages(contactServiceErrorCode.ContactIdIsInValid);
 
             return null;
         }
@@ -43,21 +50,21 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Validations
         public List<ErrorMessage> IsDeleteContactByIdMsgEntityValid(DeleteContactByIdMsgEntity deleteContactByIdMsgEntity)
         {
             if (deleteContactByIdMsgEntity.IsEmpty())
-                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.DeleteContactByIdMsgEntityIsEmpty);
+                return KanakketuppuUtility.GetErrorMessages(contactServiceErrorCode.DeleteContactByIdMsgEntityIsEmpty);
             return null;
         }
 
         public List<ErrorMessage> IsCreateContactMsgEntityValid(CreateContactMsgEntity createContactMsgEntity)
         {
             if (createContactMsgEntity.IsEmpty())
-                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.CreateContactMsgEntityIsEmpty);
+                return KanakketuppuUtility.GetErrorMessages(contactServiceErrorCode.CreateContactMsgEntityIsEmpty);
             return null;
         }
 
         public List<ErrorMessage> IsCustomerNameValid(CreateContactMsgEntity createContactMsgEntity)
         {
             if (createContactMsgEntity.CustomerName.IsEmpty())
-                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.CustomerNameIsEmpty);
+                return KanakketuppuUtility.GetErrorMessages(contactServiceErrorCode.CustomerNameIsEmpty);
 
             return null;
         }
@@ -65,21 +72,21 @@ namespace KanakketuppuUtilityApiServiceCore.ContactServiceCore.Validations
         public List<ErrorMessage> IsSubjectValid(CreateContactMsgEntity createContactMsgEntity)
         {
             if (createContactMsgEntity.Subject.IsEmpty())
-                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.SubjectIsEmpty);
+                return KanakketuppuUtility.GetErrorMessages(contactServiceErrorCode.SubjectIsEmpty);
             return null;
         }
 
         public List<ErrorMessage> IsMessageValid(CreateContactMsgEntity createContactMsgEntity)
         {
             if (createContactMsgEntity.Message.IsEmpty())
-                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.MessageIsEmpty);
+                return KanakketuppuUtility.GetErrorMessages(contactServiceErrorCode.MessageIsEmpty);
             return null;
         }
 
         public List<ErrorMessage> IsEmailAddressValid(CreateContactMsgEntity createContactMsgEntity)
         {
             if (createContactMsgEntity.EmailAddress.IsEmpty())
-                return KanakketuppuUtility.GetErrorMessages(ContactServiceErrorCode.EmailAddressIsEmpty);
+                return KanakketuppuUtility.GetErrorMessages(contactServiceErrorCode.EmailAddressIsEmpty);
             return null;
         }
 
