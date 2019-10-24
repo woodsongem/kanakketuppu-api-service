@@ -22,5 +22,16 @@
   <ItemGroup>
     <Folder Include="contactservice-core\datacontracts\MessageEntities\" />
     <Folder Include="Modules\" />
+    <Folder Include="errorcodeservice-core\" />
+    <Folder Include="errorcodeservice-core\datacontracts\" />
+    <Folder Include="errorcodeservice-core\mappers\" />
+    <Folder Include="errorcodeservice-core\modules\" />
+    <Folder Include="errorcodeservice-core\postprocessors\" />
+    <Folder Include="errorcodeservice-core\processors\" />
+    <Folder Include="errorcodeservice-core\repositories\" />
+    <Folder Include="errorcodeservice-core\services\" />
+    <Folder Include="errorcodeservice-core\utility\" />
+    <Folder Include="errorcodeservice-core\validations\" />
+    <Folder Include="errorcodeservice-core\verifiers\" />
   </ItemGroup>
 </Project>

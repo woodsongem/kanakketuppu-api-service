@@ -6,9 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="contactapiservicemodels\ccntact\" />
-    <Folder Include="contactapiservicemodels\ccntact\CreateContact\" />
-    <Folder Include="contactapiservicemodels\ccntact\GetContact\" />
-    <Folder Include="contactapiservicemodels\ccntact\UpdateContact\" />
+    <Folder Include="contactapiservicemodels\contact\" />
+    <Folder Include="contactapiservicemodels\contact\CreateContact\" />
+    <Folder Include="contactapiservicemodels\contact\GetContact\" />
+    <Folder Include="contactapiservicemodels\contact\UpdateContact\" />
+    <Folder Include="errorcodeapiservicemodels\" />
+    <Folder Include="errorcodeapiservicemodels\geterrorcode\" />
+    <Folder Include="errorcodeapiservicemodels\commons\" />
   </ItemGroup>
 </Project>
